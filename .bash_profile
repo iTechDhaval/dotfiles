@@ -1,9 +1,23 @@
 #
 # .bash_profile
 #
-# @author Jeff Geerling
+# @author Dhaval Patel
 # @see .inputrc
 #
+
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+generate_password() {
+  segments=$1
+  if [ -z "$1" ]
+    then
+    segments=4
+  fi
+  let TOTAL_CHARACTERS=segments*3
+  LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c $TOTAL_CHARACTERS | xargs | sed 's/.\{3\}/&-/g' | rev | cut -c2- | rev
+}
 
 # Nicer prompt.
 export PS1="\[\e[0;32m\]\]\[\] \[\e[1;32m\]\]\t \[\e[0;2m\]\]\w \[\e[0m\]\]\[$\] "
@@ -48,6 +62,22 @@ function irc_proxy() {
 function pretty() {
   pbpaste | highlight --syntax=$1 -O rtf | pbcopy
 }
+
+# Colorfull grep output
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;37;41'
+
+# General command alias based on Ubuntu
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias ls='ls -aFhlG'
+alias search='grep --color=auto'
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# Special alias for productivity
+alias ssearch='grep --color=auto --exclude-dir=".git" --exclude-dir=".svn"'
 
 # Git aliases.
 alias gs='git status'
