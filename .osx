@@ -427,6 +427,18 @@ defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
 defaults write com.google.Chrome DisablePrintPreview -bool true
 
 ###############################################################################
+# NTFS-specific tweaks                                                         #
+###############################################################################
+
+if [[ ($* == *--ntfs-3g-support*) ]]; then
+  # Backup Apple mount_ntfs
+  sudo mv "/Volumes/Hackintosh/sbin/mount_ntfs" "/Volumes/Hackintosh/sbin/mount_ntfs.org"
+
+  # Symlink ntfs-3g mount_ntfs
+  sudo ln -s /usr/local/sbin/mount_ntfs "/Volumes/Hackintosh/sbin/mount_ntfs"
+fi
+
+###############################################################################
 # Kill/restart affected applications                                          #
 ###############################################################################
 
