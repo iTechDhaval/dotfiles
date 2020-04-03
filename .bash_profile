@@ -52,12 +52,12 @@ bakpur='\e[45m'   # Purple
 bakcyn='\e[46m'   # Cyan
 bakwht='\e[47m'   # White
 txtrst='\e[0m'    # Text Reset
- 
+
 print_before_the_prompt () {
     printf "\n${txtgrn} %s: $bldylw%s $txtpur%s\n$txtrst" "$USER" "$PWD" "$(parse_git_branch)"
     # printf "\[\e[0;32m\]\]\[\] \[\e[1;32m\]\]\t:\[\033[33;1m\]\w\[\033[m\]\[\033[32m\]\$(parse_git_branch)\[\033[00m\]\[$\]"
 }
- 
+
 PROMPT_COMMAND=print_before_the_prompt
 PS1="$txtgrn\[\] $txtwht\[$\] "
 
@@ -72,7 +72,7 @@ export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # Custom $PATH with extra locations.
-export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$PATH
+# export PATH=/usr/local/bin:/usr/local/sbin:$HOME/bin:/usr/local/git/bin:$HOME/.composer/vendor/bin:$HOME/tools/flutter/bin:$PATH
 
 # Include alias file (if present) containing aliases for ssh, etc.
 if [ -f ~/.bash_aliases ]
@@ -171,7 +171,7 @@ if [ -f /usr/local/bin/rbenv ]; then
 fi
 
 # Python settings.
-export PYTHONPATH="/usr/local/lib/python2.7/site-packages"
+# export PYTHONPATH="/usr/local/lib/python2.7/site-packages"
 
 # Super useful Docker container oneshots.
 # Usage: dockrun, or dockrun [centos7|fedora24|debian8|ubuntu1404|etc.]

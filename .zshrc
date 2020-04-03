@@ -1,18 +1,24 @@
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  bundler
   dotenv
   osx
-  rake
-  rbenv
-  ruby
 )
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+# PATH=$PATH:$HOME/tools/flutter/bin
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/python@3.8/lib"
+export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
+# export PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/dhaval/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -67,15 +73,6 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-)
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -108,3 +105,15 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+generate_password() {
+  segments=$1
+  if [ -z "$1" ]
+    then
+    segments=4
+  fi
+  let TOTAL_CHARACTERS=segments*3
+  LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c $TOTAL_CHARACTERS | xargs | sed 's/.\{3\}/&-/g' | rev | cut -c2- | rev
+}
+
+autoload -Uz generate_password
